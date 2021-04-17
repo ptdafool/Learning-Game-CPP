@@ -78,8 +78,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalUsingDirectories>C:\Users\pt81\source\repos\Learning Game CPP\Headers;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
@@ -95,8 +94,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalUsingDirectories>C:\Users\pt81\source\repos\Learning Game CPP\Headers;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
@@ -114,8 +112,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalUsingDirectories>C:\Users\pt81\source\repos\Learning Game CPP\Headers;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
@@ -131,8 +128,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalUsingDirectories>C:\Users\pt81\source\repos\Learning Game CPP\Headers;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
@@ -147,20 +143,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\App.h" />
     <ClInclude Include="Headers\ExceptionHandler.h" />
     <ClInclude Include="headers\Graphics.h" />
     <ClInclude Include="headers\Keyboard.h" />
     <ClInclude Include="Headers\Mouse.h" />
+    <ClInclude Include="headers\Timer.h" />
     <ClInclude Include="Headers\Window.h" />
     <ClInclude Include="Headers\WindowsMessageMap.h" />
     <ClInclude Include="Headers\WinExcludes.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="App.cpp" />
     <ClCompile Include="ExceptionHandler.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain(Old).cpp" />
     <ClCompile Include="WinMain.cpp" />

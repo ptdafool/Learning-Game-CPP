@@ -5,7 +5,7 @@ class Mouse
 {
 	friend class Window;
 public:
-	class Event 
+	class Event
 	{
 	public:
 		enum class Type
@@ -30,7 +30,7 @@ public:
 	public:
 		Event() noexcept
 			:
-			type (Type::Invalid),
+			type(Type::Invalid),
 			leftIsPressed(false),
 			rightIsPressed(false),
 			x(0),
@@ -54,7 +54,7 @@ public:
 		}
 		std::pair<int, int> GetPos() const noexcept
 		{
-			return { x,y };
+			return{ x,y };
 		}
 		int GetPosX() const noexcept
 		{
@@ -72,12 +72,11 @@ public:
 		{
 			return rightIsPressed;
 		}
-
 	};
 public:
 	Mouse() = default;
 	Mouse(const Mouse&) = delete;
-	Mouse& operator = (const Mouse&) = delete;
+	Mouse& operator=(const Mouse&) = delete;
 	std::pair<int, int> GetPos() const noexcept;
 	int GetPosX() const noexcept;
 	int GetPosY() const noexcept;
@@ -91,16 +90,16 @@ public:
 	}
 	void Flush() noexcept;
 private:
-	void OnMouseMove(int x, int y)noexcept;
+	void OnMouseMove(int x, int y) noexcept;
 	void OnMouseLeave() noexcept;
 	void OnMouseEnter() noexcept;
 	void OnLeftPressed(int x, int y) noexcept;
 	void OnLeftReleased(int x, int y) noexcept;
-	void OnRightPressed(int x, int y)noexcept;
-	void OnRightReleased(int x, int y)noexcept;
-	void OnWheelUp(int x, int y)noexcept;
-	void OnWheelDown(int x, int y)noexcept;
-	void TrimBuffer()noexcept;
+	void OnRightPressed(int x, int y) noexcept;
+	void OnRightReleased(int x, int y) noexcept;
+	void OnWheelUp(int x, int y) noexcept;
+	void OnWheelDown(int x, int y) noexcept;
+	void TrimBuffer() noexcept;
 	void OnWheelDelta(int x, int y, int delta) noexcept;
 private:
 	static constexpr unsigned int bufferSize = 16u;
