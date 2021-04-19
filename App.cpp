@@ -1,5 +1,4 @@
 #include "headers\App.h"
-#include <sstream>
 #include <iomanip>
 
 App::App()
@@ -19,7 +18,6 @@ int App::Go()
 			}
 			DoFrame();
 	}
-
 }
 
 void App::DoFrame()
@@ -28,4 +26,5 @@ void App::DoFrame()
 	std::ostringstream oss;
 	oss << "Time elapsed: " << std::setprecision(1) << std::fixed << t << "s";
 	wnd.SetTitle(oss.str());
+	//Sleep(30);
 }

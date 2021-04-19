@@ -1,6 +1,6 @@
 #pragma once
-#include "winexcludes.h"
-#include "ExceptionHandler.h"
+#include "headers\winexcludes.h"
+#include "headers\exceptionhandler.h"
 #include "Keyboard.h"
 #include "Mouse.h"
 #include <optional>
@@ -38,11 +38,11 @@ private:
 		HINSTANCE hInst;
 	};
 public:
-	Window(int width, int height, const char* name);
+	Window( int width,int height,const char* name );
 	~Window();
-	Window(const Window&) = delete;
-	Window& operator=(const Window&) = delete;
-	void SetTitle(const std::string& title);
+	Window( const Window& ) = delete;
+	Window& operator=( const Window& ) = delete;
+	void SetTitle( const std::string& title );
 	static std::optional<int> ProcessMessages();
 //	Graphics& Gfx();
 private:

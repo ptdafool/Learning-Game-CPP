@@ -1,5 +1,5 @@
 #include "Headers\Timer.h"
-
+#include "Headers\App.h"
 using namespace std::chrono;
 
 Timer::Timer()

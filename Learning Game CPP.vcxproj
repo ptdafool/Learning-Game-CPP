@@ -83,6 +83,8 @@
       <AdditionalUsingDirectories>C:\Users\pt81\source\repos\Learning Game CPP\Headers;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -99,6 +101,9 @@
       <AdditionalUsingDirectories>C:\Users\pt81\source\repos\Learning Game CPP\Headers;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,6 +122,8 @@
       <AdditionalUsingDirectories>C:\Users\pt81\source\repos\Learning Game CPP\Headers;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,6 +140,9 @@
       <AdditionalUsingDirectories>C:\Users\pt81\source\repos\Learning Game CPP\Headers;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -144,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Headers\App.h" />
+    <ClInclude Include="headers\ConOut.h" />
     <ClInclude Include="Headers\ExceptionHandler.h" />
     <ClInclude Include="headers\Graphics.h" />
     <ClInclude Include="headers\Keyboard.h" />
@@ -152,16 +163,19 @@
     <ClInclude Include="Headers\Window.h" />
     <ClInclude Include="Headers\WindowsMessageMap.h" />
     <ClInclude Include="Headers\WinExcludes.h" />
+    <ClInclude Include="InputHandle.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="ConOut.cpp" />
     <ClCompile Include="ExceptionHandler.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WindowsMessageMap.cpp" />
     <ClCompile Include="WinMain(Old).cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -172,6 +186,10 @@
     <Image Include="icon1_16.ico" />
     <Image Include="Icons\icon1_32.ico" />
     <Image Include="Icons\icon1_48.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
