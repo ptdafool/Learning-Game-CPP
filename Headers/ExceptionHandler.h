@@ -2,7 +2,7 @@
 #include <exception>
 #include <string>
 
-class ExceptionHandler : public std::exception 
+class ExceptionHandler : public std::exception
 {
 public:
 	ExceptionHandler(int line, const char* file) noexcept;

@@ -1,8 +1,15 @@
 //#include "headers\Window.h"
-#include <sstream>
-#include "resource.h"
+
+
 #include "Headers\Window.h"
+#include "Headers\ConOut.h"
+#include "resource.h"
+#include <sstream>
+#include <thread>
+#include <mutex>
 /*
+*/
+
 // Window Class Stuff
 Window::WindowClass Window::WindowClass::wndClass;
 
@@ -66,6 +73,7 @@ Window::Window(int width, int height, const char* name)
 		throw PTDA_LAST_EXCEPT();
 	}
 	// create window & get hWnd
+	// create window & get hWnd
 	hWnd = CreateWindow(
 		WindowClass::GetName(), name,
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
@@ -93,6 +101,32 @@ void Window::SetTitle(const std::string& title)
 	}
 }
 
+LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
+{
+	// use create parameter passed in from CreateWindow() to store window class pointer at WinAPI side
+	if (msg == WM_NCCREATE)
+	{
+		// extract ptr to window class from creation data
+		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(lParam);
+		Window* const pWnd = static_cast<Window*>(pCreate->lpCreateParams);
+		// set WinAPI-managed user data to store ptr to window instance
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
+		// set message proc to normal (non-setup) handler now that setup is finished
+		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::HandleMsgThunk));
+		// forward message to window instance handler
+		return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+	}
+	// if we get a message before the WM_NCCREATE message, handle with default handler
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
+{
+	// retrieve ptr to window instance
+	Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+	// forward message to window instance handler
+	return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+}
 //Only processes messages, handling is done in HandleMsg and HandleMsgThunk
 std::optional<int> Window::ProcessMessages()
 {
@@ -116,38 +150,79 @@ std::optional<int> Window::ProcessMessages()
 	return {};
 }
 
-/*Graphics& Window::Gfx()
+LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
-	return *pGfx;
-}*
-
-
-LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
-{
-	// use create parameter passed in from CreateWindow() to store window class pointer at WinAPI side
-	if (msg == WM_NCCREATE)
+	
+	ConsoleMSGOut conMsg;
+	switch (msg)
 	{
-		// extract ptr to window class from creation data
-		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(lParam);
-		Window* const pWnd = static_cast<Window*>(pCreate->lpCreateParams);
-		// set WinAPI-managed user data to store ptr to window instance
-		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
-		// set message proc to normal (non-setup) handler now that setup is finished
-		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::HandleMsgThunk));
-		// forward message to window instance handler
-		return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+	case WM_SYSKEYUP:
+	case WM_SYSKEYDOWN:
+	case WM_CHAR:
+	{
+		static std::string title;
+		title.push_back((char)wParam);
+		SetWindowText(hWnd, title.c_str());
+		conMsg.ConMSGOut("Character pressed.");
 	}
-	// if we get a message before the WM_NCCREATE message, handle with default handler
+	break;
+	case WM_CLOSE:
+	{
+		conMsg.ConMSGOut("Quit Received");
+		SetWindowText(hWnd, "Please wait for close...Yeah, a whole 5 seconds mofo...");
+		Sleep(5000);
+		PostQuitMessage(0);
+	}
+	break;
+	case WM_KEYDOWN:
+		if (wParam == 'F')
+		{
+			SetWindowText(hWnd, "Respects!");
+			conMsg.ConMSGOut("Yeah, so the F key was pressed.  F you too...");
+		}
+		break;
+	case WM_KEYUP:
+		if (wParam == 'F')
+		{
+			SetWindowText(hWnd, "F Released, but I dunno what used to be here?!?");
+			conMsg.ConMSGOut("F was released.  Yay, no more F you too...");
+		}
+		break;
+	case WM_LBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		std::stringstream oss;
+		oss << "(" << pt.x << "," << pt.y << ")";
+		SetWindowText(hWnd, oss.str().c_str());
+		conMsg.ConMSGOut(oss.str() + ": is the raw value of the string.  " + oss.str().c_str() + ": is the converted value.  ");
+	}
+		break;
+	case WM_MOUSEMOVE:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		std::stringstream oss;
+		oss << "(" << pt.x << "," << pt.y << ")";
+		SetWindowText(hWnd, oss.str().c_str());
+	}
+		break;
+	case WM_MOUSEWHEEL:
+	{
+		const POINTS pt = MAKEPOINTS(wParam);
+		if (pt.y == 120)
+			SetWindowText(hWnd,"Wheel Goes Up");
+		else if (pt.y == -120)
+			SetWindowText(hWnd,"Wheel Goes Down");
+
+		/*std::stringstream oss;
+		oss << "(" << pt.x << "," << pt.y << ")";
+		SetWindowText(hWnd, oss.str().c_str());*/
+	}
+		break;
+	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
-LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
-{
-	// retrieve ptr to window instance
-	Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-	// forward message to window instance handler
-	return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
-}
-//message handling stuff.
+/*
+//message handling stuff - really just the old message handling from Chilli's HW3D model.  I may or may not develop my own later :)
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
 	switch (msg)
@@ -262,7 +337,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 
 //Window Exception Stuff
 
-Window::Exception::Exception(int line,const char* file,HRESULT hr) noexcept
+Window::Exception::Exception(int line, const char* file, HRESULT hr) noexcept
 	:
 	ExceptionHandler(line,file),
 	hr(hr)
@@ -277,10 +352,12 @@ std::ostringstream oss;
 	whatBuffer = oss.str();
 	return whatBuffer.c_str();
 }
+
 const char* Window::Exception::GetType() const noexcept
 {
 	return "Handled Exception";
 }
+
 std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
 	char* pMsgBuf = nullptr;
@@ -306,3 +383,16 @@ std::string Window::Exception::GetErrorString() const noexcept
 {
 	return TranslateErrorCode(hr);
 }
+
+
+
+
+
+/*******UNUSED ****
+* 
+* Graphics& Window::Gfx()
+{
+	return *pGfx;
+}*
+*/
+

@@ -1,10 +1,13 @@
 #pragma once
-
+#include "headers\winexcludes.h"
+#include "headers\ExceptionHandler.h"
+#include <optional>
+#include <string>
+#include <sstream>
 //#include "Keyboard.h"
 //#include "Mouse.h"
-#include "headers\ExceptionHandler.h"
-#include "headers\winexcludes.h"
-//#include <optional>
+
+
 //#include "graphics.h"
 
 class Window
@@ -20,11 +23,10 @@ public:
 		HRESULT GetErrorCode() const noexcept;
 		std::string GetErrorString() const noexcept;
 	private:
+		HWND hWnd;
 		HRESULT hr;
 	};
-	/*
-private:
-	// singleton manages registration/cleanup of window class
+public:
 	class WindowClass
 	{
 	public:
@@ -35,33 +37,45 @@ private:
 		~WindowClass();
 		WindowClass(const WindowClass&) = delete;
 		WindowClass& operator=(const WindowClass&) = delete;
-		static constexpr const char* wndClassName = "Chili Direct3D Engine Window";
+		static constexpr const char* wndClassName = "PtDaFool Direct3D Engine";
 		static WindowClass wndClass;
 		HINSTANCE hInst;
+		HRESULT hr;
 	};
 public:
-	Window( int width,int height,const char* name );
+	Window(int width, int height, const char* name);
 	~Window();
-	Window( const Window& ) = delete;
-	Window& operator=( const Window& ) = delete;
-	void SetTitle( const std::string& title );
+	Window(const Window&) = delete;
+	Window& operator=(const Window&) = delete;
+	void SetTitle(const std::string& title);
 	static std::optional<int> ProcessMessages();
-//	Graphics& Gfx();
 private:
+
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
-public:
-	Keyboard kbd;
-	Mouse mouse;
-//	Graphics gfx;
 private:
 	int width;
 	int height;
 	HWND hWnd;
-//	std::unique_ptr<Graphics> pGfx;*/
 };
+/*public:
+	Keyboard kbd;
+	Mouse mouse;
+	//	Graphics gfx;
+	/*
+private:
+	// singleton manages registration/cleanup of window class
+
+
+//	Graphics& Gfx();
+
+
+//	std::unique_ptr<Graphics> pGfx;*/
+
 
 // error exception helper macro
+
+
 #define PTDA_EXCEPT(hr) Window::Exception( __LINE__,__FILE__,hr)
 #define PTDA_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError())
