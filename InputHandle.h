@@ -6,5 +6,5 @@ class HandleMsg : Window
 	// class to handle messages.
 
 public:
-	void MouseMessage(bool msgType)
+	void MouseMessage(bool msgType);
 };

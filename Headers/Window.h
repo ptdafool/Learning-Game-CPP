@@ -1,8 +1,9 @@
 #pragma once
-#include "headers\winexcludes.h"
-#include "headers\exceptionhandler.h"
+
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "headers\ExceptionHandler.h"
+#include "headers\winexcludes.h"
 #include <optional>
 //#include "graphics.h"
 
@@ -61,5 +62,5 @@ private:
 };
 
 // error exception helper macro
-#define CHWND_EXCEPT(hr) WINDOW::Exception( __LINE__,__FILE__,hr)
-#define CHWND_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError())
+#define PTDA_EXCEPT(hr) WINDOW::Exception( __LINE__,__FILE__,hr)
+#define PTDA_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError())

@@ -1,13 +1,11 @@
 #pragma once
-#include <consoleapi.h>
-#include <processenv.h>
-#include <winbase.h>
+#include <windows.h>
 #include <string>
 class ConsoleMSGOut
 {
 public:
-	ConsoleMSGOut(char message);
-private:
-	ConsoleMSGOut(char message)
+	ConsoleMSGOut()
 	{}
+	//std::string ConMsgOut(std::string message);
+	std::string ConMSGOut(std::string message);
 };

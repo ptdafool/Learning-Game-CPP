@@ -62,7 +62,7 @@ Window::Window(int width, int height, const char* name)
 	wr.bottom = height + wr.top;
 	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
 	{
-		throw CHWND_LAST_EXCEPT();
+		throw PTDA_LAST_EXCEPT();
 	}
 	// create window & get hWnd
 	hWnd = CreateWindow(
@@ -74,7 +74,7 @@ Window::Window(int width, int height, const char* name)
 	// check for error
 	if (hWnd == nullptr)
 	{
-		throw CHWND_LAST_EXCEPT();
+		throw PTDA_LAST_EXCEPT();
 	}
 	// show window
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
@@ -88,10 +88,11 @@ void Window::SetTitle(const std::string& title)
 {
 	if (SetWindowText(hWnd, title.c_str()) == 0)
 	{
-		throw CHWND_LAST_EXCEPT();
+		throw PTDA_LAST_EXCEPT();
 	}
 }
 
+//Only processes messages, handling is done in HandleMsg and HandleMsgThunk
 std::optional<int> Window::ProcessMessages()
 {
 	MSG msg;

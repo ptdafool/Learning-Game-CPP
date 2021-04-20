@@ -74,7 +74,7 @@ public:
 		}
 	};
 public:
-	Mouse() = default;
+	Mouse() = default;  //Not sure why this function definition exists
 	Mouse(const Mouse&) = delete;
 	Mouse& operator=(const Mouse&) = delete;
 	std::pair<int, int> GetPos() const noexcept;
