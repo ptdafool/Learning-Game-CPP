@@ -70,10 +70,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Headers</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Headers</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Headers</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Headers</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -156,15 +164,14 @@
     <ClInclude Include="Headers\App.h" />
     <ClInclude Include="headers\ConOut.h" />
     <ClInclude Include="Headers\ExceptionHandler.h" />
-    <ClInclude Include="headers\Graphics.h" />
-    <ClInclude Include="headers\Keyboard.h" />
+    <ClInclude Include="Headers\Graphics.h" />
+    <ClInclude Include="Headers\Keyboard.h" />
     <ClInclude Include="Headers\Mouse.h" />
-    <ClInclude Include="headers\Timer.h" />
+    <ClInclude Include="Headers\Timer.h" />
     <ClInclude Include="Headers\Window.h" />
     <ClInclude Include="Headers\WindowsMessageMap.h" />
     <ClInclude Include="Headers\WinExcludes.h" />
     <ClInclude Include="InputHandle.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />

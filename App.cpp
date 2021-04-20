@@ -1,6 +1,6 @@
 #include "headers\App.h"
 #include <iomanip>
-
+/*
 App::App()
 	:
 	wnd(800, 600, "Learning CPP Game")
@@ -27,4 +27,4 @@ void App::DoFrame()
 	oss << "Time elapsed: " << std::setprecision(1) << std::fixed << t << "s";
 	wnd.SetTitle(oss.str());
 	//Sleep(30);
-}
+}*/

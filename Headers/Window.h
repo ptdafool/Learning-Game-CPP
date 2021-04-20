@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Keyboard.h"
-#include "Mouse.h"
+//#include "Keyboard.h"
+//#include "Mouse.h"
 #include "headers\ExceptionHandler.h"
 #include "headers\winexcludes.h"
-#include <optional>
+//#include <optional>
 //#include "graphics.h"
 
 class Window
@@ -22,6 +22,7 @@ public:
 	private:
 		HRESULT hr;
 	};
+	/*
 private:
 	// singleton manages registration/cleanup of window class
 	class WindowClass
@@ -58,9 +59,9 @@ private:
 	int width;
 	int height;
 	HWND hWnd;
-//	std::unique_ptr<Graphics> pGfx;
+//	std::unique_ptr<Graphics> pGfx;*/
 };
 
 // error exception helper macro
-#define PTDA_EXCEPT(hr) WINDOW::Exception( __LINE__,__FILE__,hr)
+#define PTDA_EXCEPT(hr) Window::Exception( __LINE__,__FILE__,hr)
 #define PTDA_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError())

@@ -1,5 +1,5 @@
 #pragma once
-#include <windows.h>
+#include "WinExcludes.h"
 #include <string>
 class ConsoleMSGOut
 {

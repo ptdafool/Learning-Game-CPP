@@ -1,7 +1,8 @@
-#include "headers\Window.h"
+//#include "headers\Window.h"
 #include <sstream>
 #include "resource.h"
-
+#include "Headers\Window.h"
+/*
 // Window Class Stuff
 Window::WindowClass Window::WindowClass::wndClass;
 
@@ -118,7 +119,7 @@ std::optional<int> Window::ProcessMessages()
 /*Graphics& Window::Gfx()
 {
 	return *pGfx;
-}*/
+}*
 
 
 LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
@@ -161,7 +162,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		kbd.ClearState();
 		break;
 
-		/*********** KEYBOARD MESSAGES ***********/
+		/*********** KEYBOARD MESSAGES ***********
 	case WM_KEYDOWN:
 		// syskey commands need to be handled to track ALT key (VK_MENU) and F10
 	case WM_SYSKEYDOWN:
@@ -177,9 +178,9 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_CHAR:
 		kbd.OnChar(static_cast<unsigned char>(wParam));
 		break;
-		/*********** END KEYBOARD MESSAGES ***********/
+		/*********** END KEYBOARD MESSAGES ***********
 
-		/************* MOUSE MESSAGES ****************/
+		/************* MOUSE MESSAGES ****************
 	case WM_MOUSEMOVE:
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
@@ -252,13 +253,15 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		mouse.OnWheelDelta(pt.x, pt.y, delta);
 		break;
 	}
-	/************** END MOUSE MESSAGES **************/
+	/************** END MOUSE MESSAGES **************
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
+*/
 
 //Window Exception Stuff
+
 Window::Exception::Exception(int line,const char* file,HRESULT hr) noexcept
 	:
 	ExceptionHandler(line,file),

@@ -18,37 +18,34 @@
     <ClInclude Include="Headers\WinExcludes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\WindowsMessageMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\ExceptionHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\Keyboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Mouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\Graphics.h">
+    <ClInclude Include="headers\ConOut.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\App.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\Timer.h">
+    <ClInclude Include="Headers\Graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Mouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InputHandle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\ConOut.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
