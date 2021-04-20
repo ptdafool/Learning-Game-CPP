@@ -149,7 +149,7 @@ std::optional<int> Window::ProcessMessages()
 	// return empty optional when not quitting app
 	return {};
 }
-
+// Message Handling stuff
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
 	
@@ -163,7 +163,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		static std::string title;
 		title.push_back((char)wParam);
 		SetWindowText(hWnd, title.c_str());
-		conMsg.ConMSGOut("Character pressed.");
+		conMsg.ConMSGOut("Character pressed.\n");
 	}
 	break;
 	case WM_CLOSE:
@@ -178,14 +178,14 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		if (wParam == 'F')
 		{
 			SetWindowText(hWnd, "Respects!");
-			conMsg.ConMSGOut("Yeah, so the F key was pressed.  F you too...");
+			conMsg.ConMSGOut("Yeah, so the F key was pressed.  F you too...\n");
 		}
 		break;
 	case WM_KEYUP:
 		if (wParam == 'F')
 		{
 			SetWindowText(hWnd, "F Released, but I dunno what used to be here?!?");
-			conMsg.ConMSGOut("F was released.  Yay, no more F you too...");
+			conMsg.ConMSGOut("F was released.  Yay, no more F you too...\n");
 		}
 		break;
 	case WM_LBUTTONDOWN:
@@ -194,7 +194,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		std::stringstream oss;
 		oss << "(" << pt.x << "," << pt.y << ")";
 		SetWindowText(hWnd, oss.str().c_str());
-		conMsg.ConMSGOut(oss.str() + ": is the raw value of the string.  " + oss.str().c_str() + ": is the converted value.  ");
+		conMsg.ConMSGOut(oss.str() + ": is the raw value of the string.  " + oss.str().c_str() + ": is the converted value.  \n");
 	}
 		break;
 	case WM_MOUSEMOVE:
@@ -212,10 +212,6 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 			SetWindowText(hWnd,"Wheel Goes Up");
 		else if (pt.y == -120)
 			SetWindowText(hWnd,"Wheel Goes Down");
-
-		/*std::stringstream oss;
-		oss << "(" << pt.x << "," << pt.y << ")";
-		SetWindowText(hWnd, oss.str().c_str());*/
 	}
 		break;
 	}
