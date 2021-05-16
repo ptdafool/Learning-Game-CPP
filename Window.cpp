@@ -5,10 +5,8 @@
 #include "Headers\ConOut.h"
 #include "resource.h"
 #include <sstream>
-#include <thread>
-#include <mutex>
-/*
-*/
+#include "Keyboard.h"
+
 
 // Window Class Stuff
 Window::WindowClass Window::WindowClass::wndClass;
@@ -40,20 +38,13 @@ Window::WindowClass::WindowClass() noexcept
 	RegisterClassEx( &wc );
 }
 
-//Deconstructor - i.e. cleanup on quit of the program, we want to destroy the object instance
+//Deconstructor - cleanup on quit of the program, we want to destroy the WindowClass object instance
 Window::WindowClass::~WindowClass()
 {
 	UnregisterClass(wndClassName, GetInstance());
 }
-const char* Window::WindowClass::GetName() noexcept
-{
-	return wndClassName;
-}
 
-HINSTANCE Window::WindowClass::GetInstance() noexcept
-{
-	return wndClass.hInst;
-}
+
 
 
 //Window Stuff
@@ -92,7 +83,14 @@ Window::~Window()
 {
 	DestroyWindow(hWnd);
 }
-
+const char* Window::WindowClass::GetName() noexcept
+{
+	return wndClassName;
+}
+HINSTANCE Window::WindowClass::GetInstance() noexcept
+{
+	return wndClass.hInst;
+}
 void Window::SetTitle(const std::string& title)
 {
 	if (SetWindowText(hWnd, title.c_str()) == 0)
@@ -100,6 +98,7 @@ void Window::SetTitle(const std::string& title)
 		throw PTDA_LAST_EXCEPT();
 	}
 }
+
 
 LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
@@ -119,7 +118,6 @@ LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 	// if we get a message before the WM_NCCREATE message, handle with default handler
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
-
 LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
 	// retrieve ptr to window instance
@@ -156,37 +154,30 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	ConsoleMSGOut conMsg;
 	switch (msg)
 	{
-	case WM_SYSKEYUP:
-	case WM_SYSKEYDOWN:
-	case WM_CHAR:
-	{
-		static std::string title;
-		title.push_back((char)wParam);
-		SetWindowText(hWnd, title.c_str());
-		conMsg.ConMSGOut("Character pressed.\n");
-	}
-	break;
 	case WM_CLOSE:
 	{
 		conMsg.ConMSGOut("Quit Received");
-		SetWindowText(hWnd, "Please wait for close...Yeah, a whole 5 seconds mofo...");
-		Sleep(5000);
+		SetWindowText(hWnd, "Please wait for close...Yeah, a whole 3 seconds mofo...");
+		Sleep(3000);
 		PostQuitMessage(0);
 	}
-	break;
+		break;
+	case WM_CHAR:
+	{
+		kbd.OnChar(static_cast<unsigned char>(wParam));
+	}
+		break;
 	case WM_KEYDOWN:
-		if (wParam == 'F')
-		{
-			SetWindowText(hWnd, "Respects!");
-			conMsg.ConMSGOut("Yeah, so the F key was pressed.  F you too...\n");
-		}
+	case WM_SYSKEYDOWN:
+	{
+		kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+	}
 		break;
 	case WM_KEYUP:
-		if (wParam == 'F')
-		{
-			SetWindowText(hWnd, "F Released, but I dunno what used to be here?!?");
-			conMsg.ConMSGOut("F was released.  Yay, no more F you too...\n");
-		}
+	case WM_SYSKEYUP:
+	{
+		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+	}
 		break;
 	case WM_LBUTTONDOWN:
 	{
@@ -194,29 +185,44 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		std::stringstream oss;
 		oss << "(" << pt.x << "," << pt.y << ")";
 		SetWindowText(hWnd, oss.str().c_str());
-		conMsg.ConMSGOut(oss.str() + ": is the raw value of the string.  " + oss.str().c_str() + ": is the converted value.  \n");
+		conMsg.ConMSGOut("Clicky here: " + oss.str() + "\n");
 	}
 		break;
 	case WM_MOUSEMOVE:
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
 		std::stringstream oss;
-		oss << "(" << pt.x << "," << pt.y << ")";
-		SetWindowText(hWnd, oss.str().c_str());
+		oss << "(" << pt.x << "," << pt.y << ")" << "\n";
+		// add a sleep but don't stall the whole application 
+		conMsg.ConMSGOut(oss.str());
+		// success!  Messages don't go to the title anymore, they get output to the console.
 	}
 		break;
 	case WM_MOUSEWHEEL:
 	{
 		const POINTS pt = MAKEPOINTS(wParam);
 		if (pt.y == 120)
-			SetWindowText(hWnd,"Wheel Goes Up");
+			conMsg.ConMSGOut("Wheel goes up...\n");
 		else if (pt.y == -120)
-			SetWindowText(hWnd,"Wheel Goes Down");
+			conMsg.ConMSGOut("Wheel Goes Down...\n");
 	}
 		break;
+	case WM_KILLFOCUS:
+	{
+		conMsg.ConMSGOut("Lost Window Focus...oh noes!\n");
+		kbd.ClearState();
+	}
+		break;
+	case WM_SETFOCUS:
+	{
+		conMsg.ConMSGOut("Re-Gained Focus...ohhmmmmmm...\n");
+	}
+	break;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
+
+
 /*
 //message handling stuff - really just the old message handling from Chilli's HW3D model.  I may or may not develop my own later :)
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept

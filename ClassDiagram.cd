@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Window">
-    <Position X="0.5" Y="0.5" Width="2" />
+    <Position X="0.5" Y="0.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="Window::Exception">
+      <Class Name="Window::Exception" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Headers\Window.h</NewMemberFileName>
         </TypeIdentifier>
@@ -18,8 +18,49 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAQAEAAAABAQAQAAAIAAAAQAEAAAAAAAgCAAAAAA=</HashCode>
+      <HashCode>AAAAAQAEAAAABAYAQAAAIEAAAQAEAAAAAAAgCAAAAAA=</HashCode>
       <FileName>Headers\Window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timer">
+    <Position X="9.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAACAAAAEAgA=</HashCode>
+      <FileName>Headers\Timer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphics">
+    <Position X="11.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAACAAAAACAAEAgAAAABAE=</HashCode>
+      <FileName>Headers\Graphics.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Keyboard">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Keyboard::Event">
+        <Compartments>
+          <Compartment Name="Nested Types" Collapsed="false" />
+        </Compartments>
+        <NestedTypes>
+          <Enum Name="Keyboard::Event::Type">
+            <TypeIdentifier>
+              <NewMemberFileName>Headers\Keyboard.h</NewMemberFileName>
+            </TypeIdentifier>
+          </Enum>
+        </NestedTypes>
+        <TypeIdentifier>
+          <NewMemberFileName>Headers\Keyboard.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QgkgCQQAAAEKAABCAAAAIIAwgAAAAACAAAAoAAAJAQA=</HashCode>
+      <FileName>Headers\Keyboard.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

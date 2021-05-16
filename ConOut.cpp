@@ -10,12 +10,12 @@
 
 std::string ConsoleMSGOut::ConMSGOut(std::string message)
 {
-	AllocConsole();
-	std::string messageString = message;
-	DWORD dwSize = 0;
-	WriteConsole(
-		GetStdHandle(STD_OUTPUT_HANDLE), 
-		message.c_str(), 
-		message.size(), nullptr, nullptr);  
-	return message;
+		AllocConsole();
+		std::string messageString = message;
+		DWORD dwSize = 0;
+		WriteConsole(
+			GetStdHandle(STD_OUTPUT_HANDLE),
+			message.c_str(),
+			message.size(), nullptr, nullptr);
+		return message;
 }

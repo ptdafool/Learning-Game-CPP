@@ -23,12 +23,18 @@ int CALLBACK WinMain(
 	{
 		Window wnd(800, 300, "Some Shitbox");
 		ConsoleMSGOut conMsg;
+		conMsg.ConMSGOut("Starting Up...\n"); 
 		MSG msg;
 		BOOL gResult;
 		while((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if (wnd.kbd.KeyIsPressed(VK_SPACE))
+			{
+				conMsg.ConMSGOut("Something Happon msg box shown.\n");
+				MessageBox(nullptr, "Something Happon!", "Space Key Was Pressed", MB_OK | MB_ICONEXCLAMATION);
+			}
 		}
 		if (gResult == -1)
 		{

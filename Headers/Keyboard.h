@@ -4,7 +4,7 @@
 
 class Keyboard
 {
-	friend class Window;
+	friend class Window; //makes private elements of Keybaord accessible to Window class - and only Window class.
 public:
 	class Event
 	{

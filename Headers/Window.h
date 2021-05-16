@@ -4,8 +4,8 @@
 #include <optional>
 #include <string>
 #include <sstream>
-//#include "Keyboard.h"
-//#include "Mouse.h"
+#include "Keyboard.h"
+#include "Mouse.h"
 //#include "graphics.h"
 
 class Window
@@ -55,6 +55,9 @@ private:
 	int width;
 	int height;
 	HWND hWnd;
+public:
+	Keyboard kbd;
+	Mouse mouse;
 };
 /*public:
 	Keyboard kbd;
